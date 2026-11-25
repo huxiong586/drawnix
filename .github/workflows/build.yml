@@ -1,0 +1,33 @@
+name: Build Drawnix Image
+
+on:
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: false
+          load: true
+          tags: drawnix-custom:latest
+          platforms: linux/amd64  # 如果你的设备是 ARM 架构（如 M 芯片 Mac 或部分 NAS），改为 linux/arm64
+
+      - name: Save image to tar
+        run: docker save -o drawnix-custom.tar drawnix-custom:latest
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: drawnix-custom-image
+          path: drawnix-custom.tar
+          retention-days: 7
