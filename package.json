@@ -52,7 +52,7 @@
     "@nx/vitest": "22.6.5",
     "@nx/web": "22.6.5",
     "@nx/workspace": "22.6.5",
-    "@playwright/test": "^1.36.0",
+    "@playwright/test": "^1.65.1",
     "@swc-node/register": "1.11.1",
     "@swc/cli": "0.7.10",
     "@swc/core": "1.15.8",
